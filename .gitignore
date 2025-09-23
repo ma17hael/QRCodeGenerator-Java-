@@ -1,0 +1,25 @@
+# === Fichiers et dossiers Eclipse ===
+.classpath
+.project
+.settings/
+
+# === Fichiers compilés ===
+bin/
+target/
+out/
+*.class
+
+# === Fichiers temporaires système ===
+*.log
+*.tmp
+*.swp
+*.DS_Store
+Thumbs.db
+
+# === Configurations spécifiques IDE ===
+.vscode/
+.idea/
+
+# === Sauvegardes Eclipse ===
+*.bak
+*.orig
