@@ -25,8 +25,7 @@ public class UserInterface extends JFrame {
 	public void cmdStockerDonnées() {
 		String texte = TextField.getText();
 		String lien = LinkTextField.getText();
-		String[] données = {texte, lien};
-		controleur.demandeUInterfaceDonnées(données);
+		controleur.demandeUInterfaceDonnées(texte, lien);
 	}
 
 	public UserInterface(ControleurFormulaire controle) {

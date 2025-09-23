@@ -1,6 +1,7 @@
 package Controleur;
 
 import Modele.DonnéeFormulaire;
+import Services.ServicePDF;
 import Vue.UserInterface;
 
 public class ControleurFormulaire {
@@ -15,10 +16,10 @@ public class ControleurFormulaire {
 		new ControleurFormulaire();
 	}
 	
-	public void demandeUInterfaceDonnées(Object données) {
-		String[] Data = (String[]) données;
-		DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(Data[0], Data[1]);
-		System.out.println("Formulaire reçu :" + donnéeStockée);
+	public void demandeUInterfaceDonnées(String texte, String lien) {
+		DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(texte, lien);
+		String cheminPDF = "C:\\Users\\Malthael\\Downloads\\Test.pdf";
+		ServicePDF.generatePDF(donnéeStockée.getTexte(), donnéeStockée.getLien(), cheminPDF);
 	}
 	
 }
