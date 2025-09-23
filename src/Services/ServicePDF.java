@@ -9,20 +9,38 @@ import java.io.IOException;
 
 public class ServicePDF {
 	public static void generatePDF(String texte, String lien, String cheminPDF) {
-		PdfWriter writer = null;
-		try {
-			writer = new PdfWriter(cheminPDF);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		PdfDocument pdf = new PdfDocument(writer);
-		Document document = new Document(pdf);
-		document.add(new Paragraph("Texte :" + texte));
-		document.add(new Paragraph("Lien :" + lien));
-		document.close();
-			
-		System.out.println("PDF généré avec succès : " + cheminPDF);
-	}
+		if (texte == null || lien == null || cheminPDF == null || cheminPDF.trim().isEmpty()) {
+            System.err.println("Erreur : Texte, lien ou chemin PDF invalide.");
+            return;
+        }
 
+        PdfWriter writer = null;
+        try {
+            writer = new PdfWriter(cheminPDF);
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la création du PdfWriter : " + e.getMessage());
+            return;
+        }
+
+        PdfDocument pdf = null;
+        Document document = null;
+
+        try {
+            pdf = new PdfDocument(writer);
+            document = new Document(pdf);
+            document.add(new Paragraph("Texte : " + texte));
+            document.add(new Paragraph("Lien : " + lien));
+            System.out.println("PDF généré avec succès : " + cheminPDF);
+        } catch (Exception e) {
+            System.err.println("Erreur lors de la génération du PDF : " + e.getMessage());
+        } finally {
+            if (document != null) {
+                try {
+                    document.close();
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de la fermeture du document PDF : " + e.getMessage());
+                }
+            }
+        }
+    }
 }
