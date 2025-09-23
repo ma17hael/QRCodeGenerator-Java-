@@ -8,6 +8,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
 
 public class UserInterface extends JFrame {
 
@@ -45,23 +47,34 @@ public class UserInterface extends JFrame {
 		
 		JLabel TextLabel = new JLabel("Texte :");
 		TextLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		TextLabel.setBounds(23, 23, 214, 58);
+		TextLabel.setBounds(25, 88, 214, 58);
 		contentPane.add(TextLabel);
 		
 		TextField = new JTextField();
-		TextField.setBounds(105, 32, 191, 49);
+		TextField.setBounds(107, 97, 191, 49);
 		contentPane.add(TextField);
 		TextField.setColumns(10);
 		
 		JLabel LinkLabel = new JLabel("Lien :");
 		LinkLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		LinkLabel.setBounds(23, 125, 214, 58);
+		LinkLabel.setBounds(25, 190, 214, 58);
 		contentPane.add(LinkLabel);
 		
 		LinkTextField = new JTextField();
 		LinkTextField.setColumns(10);
-		LinkTextField.setBounds(105, 134, 191, 49);
+		LinkTextField.setBounds(107, 199, 191, 49);
 		contentPane.add(LinkTextField);
+		
+		JButton ValidateButton = new JButton("Validation");
+		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		ValidateButton.setBounds(351, 92, 127, 156);
+		contentPane.add(ValidateButton);
+		
+		JLabel TitleLabel = new JLabel("Génération de PDF avec QRCode");
+		TitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		TitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		TitleLabel.setBounds(25, 10, 453, 59);
+		contentPane.add(TitleLabel);
 
 	}
 }
