@@ -21,6 +21,13 @@ public class UserInterface extends JFrame {
 	private JTextField TextField;
 	private JTextField LinkTextField;
 	private ControleurFormulaire controleur;
+	
+	public void cmdStockerDonnées() {
+		String texte = TextField.getText();
+		String lien = LinkTextField.getText();
+		String[] données = {texte, lien};
+		controleur.demandeUInterfaceDonnées(données);
+	}
 
 	public UserInterface(ControleurFormulaire controle) {
 		this.controleur = controle;
@@ -55,6 +62,7 @@ public class UserInterface extends JFrame {
 		JButton ValidateButton = new JButton("Validation");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		ValidateButton.setBounds(351, 92, 127, 156);
+		ValidateButton.addActionListener(e -> cmdStockerDonnées());
 		contentPane.add(ValidateButton);
 		
 		JLabel TitleLabel = new JLabel("Génération de PDF avec QRCode");
