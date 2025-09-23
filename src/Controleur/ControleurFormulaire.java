@@ -2,6 +2,7 @@ package Controleur;
 
 import Modele.DonnéeFormulaire;
 import Services.ServicePDF;
+import Services.ServiceQR;
 import Vue.UserInterface;
 
 public class ControleurFormulaire {
@@ -17,9 +18,19 @@ public class ControleurFormulaire {
 	}
 	
 	public void demandeUInterfaceDonnées(String texte, String lien) {
-		DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(texte, lien);
-		String cheminPDF = "C:\\Users\\Malthael\\Downloads\\Test.pdf";
-		ServicePDF.generatePDF(donnéeStockée.getTexte(), donnéeStockée.getLien(), cheminPDF);
+		try {
+			DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(texte, lien);
+			String cheminPDF = "C:\\Users\\Malthael\\Downloads\\Test.pdf";
+			ServicePDF.generatePDF(donnéeStockée.getTexte(), donnéeStockée.getLien(), cheminPDF);
+		
+			String cheminQR = "C:\\Users\\Malthael\\Downloads\\QRTEST.png";
+			String data = donnéeStockée.getTexte() + "\n" + donnéeStockée.getLien();
+			ServiceQR.genererQRCode(data, cheminQR, 200, 200);
+	 	} catch (IllegalArgumentException e) {
+         System.err.println("Données invalides : " + e.getMessage());
+	 	} catch (Exception e) {
+         System.err.println("Erreur inattendue : " + e.getMessage());
+	 	}
 	}
 	
 }

@@ -14,6 +14,9 @@ public class DonnéeFormulaire {
 	}
 
 	public void setTexte(String texte) {
+		if (lien == null || lien.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le lien ne peut pas être vide.");
+        }
 		this.texte = texte;
 	}
 
@@ -22,6 +25,9 @@ public class DonnéeFormulaire {
 	}
 
 	public void setLien(String lien) {
+		if (texte == null || texte.trim().isEmpty()) {
+            throw new IllegalArgumentException("Le texte ne peut pas être vide.");
+        }
 		this.lien = lien;
 	}
 }

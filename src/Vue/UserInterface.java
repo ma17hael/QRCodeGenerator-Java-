@@ -61,7 +61,20 @@ public class UserInterface extends JFrame {
 		JButton ValidateButton = new JButton("Validation");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		ValidateButton.setBounds(351, 92, 127, 156);
-		ValidateButton.addActionListener(e -> cmdStockerDonnées());
+		ValidateButton.addActionListener(e ->  {
+			try {
+		        String texte = TextField.getText();
+		        String lien = LinkTextField.getText();
+		        if (texte.isEmpty() || lien.isEmpty()) {
+		            throw new IllegalArgumentException("Veuillez remplir tous les champs.");
+		        }
+		        controleur.demandeUInterfaceDonnées(texte, lien);
+		    } catch (IllegalArgumentException ex) {
+		        System.err.println("Erreur UI : " + ex.getMessage());
+		    } catch (Exception ex) {
+		        System.err.println("Erreur inattendue UI : " + ex.getMessage());
+		    }
+		});
 		contentPane.add(ValidateButton);
 		
 		JLabel TitleLabel = new JLabel("Génération de PDF avec QRCode");
