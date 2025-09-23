@@ -11,6 +11,10 @@ public class ControleurFormulaire {
 		uinterface.setVisible(true);
 	}
 	
+	public static void main(String[] args) {
+		new ControleurFormulaire();
+	}
+	
 	public void demandeUInterfaceDonnées(Object données) {
 		String[] Data = (String[]) données;
 		DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(Data[0], Data[1]);
