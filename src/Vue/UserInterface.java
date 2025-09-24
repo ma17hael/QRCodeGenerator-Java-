@@ -1,7 +1,5 @@
 package Vue;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -65,18 +63,36 @@ public class UserInterface extends JFrame {
 		ValidateButton.setBounds(25, 491, 471, 58);
 		ValidateButton.addActionListener(e ->  {
 			try {
-		        String texte = TextField.getText();
-		        String lien = LinkTextField.getText();
-		        String titre = TitleTextField.getText();
-		        String cheminPDF = cheminPDFField.getText();
-		        if (texte.isEmpty() || lien.isEmpty()) {
-		            throw new IllegalArgumentException("Veuillez remplir tous les champs.");
+		        String titre = TitleTextField.getText().trim();
+		        String texte = TextField.getText().trim();
+		        String lien = LinkTextField.getText().trim();
+		        String cheminPDF = cheminPDFField.getText().trim();
+
+		        if (titre.isEmpty() || lien.isEmpty() || cheminPDF.isEmpty()) {
+		            javax.swing.JOptionPane.showMessageDialog(
+		                this,
+		                "Veuillez remplir tous les champs et sélectionner un emplacement pour le PDF.",
+		                "Erreur",
+		                javax.swing.JOptionPane.ERROR_MESSAGE
+		            );
+		            return;
 		        }
+
 		        controleur.demandeUInterfaceDonnées(titre, texte, lien, cheminPDF);
-		    } catch (IllegalArgumentException ex) {
-		        System.err.println("Erreur UI : " + ex.getMessage());
+		        javax.swing.JOptionPane.showMessageDialog(
+		            this,
+		            "Le PDF a été généré avec succès !",
+		            "Succès",
+		            javax.swing.JOptionPane.INFORMATION_MESSAGE
+		        );
+
 		    } catch (Exception ex) {
-		        System.err.println("Erreur inattendue UI : " + ex.getMessage());
+		        javax.swing.JOptionPane.showMessageDialog(
+		            this,
+		            "Une erreur inattendue est survenue : " + ex.getMessage(),
+		            "Erreur",
+		            javax.swing.JOptionPane.ERROR_MESSAGE
+		        );
 		    }
 		});
 		contentPane.add(ValidateButton);
