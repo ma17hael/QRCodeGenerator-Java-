@@ -21,10 +21,7 @@ public class ControleurFormulaire {
         try {
             DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(titre, texte, lien);
 
-            String cheminQRCode = "C:\\temp\\qrcode.png";
-            ServiceQR.genererQRCode(donnéeStockée.getLien(), cheminQRCode, 200, 200);
-
-            ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPDF,  cheminQRCode);
+            ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPDF);
 
         } catch (IllegalArgumentException e) {
             System.err.println("Données invalides : " + e.getMessage());
