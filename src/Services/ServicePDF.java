@@ -12,10 +12,10 @@ import com.itextpdf.layout.properties.TextAlignment;
 import java.io.IOException;
 
 public class ServicePDF {
+	@SuppressWarnings("resource")
 	public static void generatePDF(String titre, String texte, String lien, String cheminPDF) {
         if (titre == null || texte == null || lien == null || cheminPDF == null) {
-            System.err.println("Erreur : Paramètres invalides.");
-            return;
+        	throw new IllegalArgumentException("Paramètres invalides pour la génération du PDF");
         }
 
         try {
@@ -49,15 +49,15 @@ public class ServicePDF {
                         .setTextAlignment(TextAlignment.CENTER);
                 document.add(lienPara);
             } else {
-                System.err.println("QR code non trouvé pour ajout dans le PDF");
+            	throw new IllegalArgumentException("QR code non trouvé lors de la création du PDF");
             }
 
             document.close();
 
         } catch (IOException e) {
-            System.err.println("Erreur lors de la génération du PDF : " + e.getMessage());
+        	 throw new IllegalArgumentException("Erreur lors de la generation du PDF : " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Erreur inattendue : " + e.getMessage());
+        	throw new IllegalArgumentException("Erreur innatendu : " + e.getMessage());
         }
     }
 }

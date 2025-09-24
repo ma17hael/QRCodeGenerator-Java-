@@ -2,7 +2,6 @@ package Controleur;
 
 import Modele.DonnéeFormulaire;
 import Services.ServicePDF;
-import Services.ServiceQR;
 import Vue.UserInterface;
 
 public class ControleurFormulaire {
@@ -24,9 +23,9 @@ public class ControleurFormulaire {
             ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPDF);
 
         } catch (IllegalArgumentException e) {
-            System.err.println("Données invalides : " + e.getMessage());
+        	throw new IllegalArgumentException("Champs manquants ou chemin invalide :" + e.getMessage());
         } catch (Exception e) {
-            System.err.println("Erreur inattendue : " + e.getMessage());
+        	throw new IllegalArgumentException("Erreur Innatendu : " + e.getMessage());
         }
     }
 	
