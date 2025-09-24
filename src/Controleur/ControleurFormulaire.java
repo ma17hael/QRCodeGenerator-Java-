@@ -17,15 +17,14 @@ public class ControleurFormulaire {
 		new ControleurFormulaire();
 	}
 	
-	public void demandeUInterfaceDonnées(String texte, String lien) {
+	public void demandeUInterfaceDonnées(String titre, String texte, String lien, String CheminPDF) {
         try {
-            DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(texte, lien);
+            DonnéeFormulaire donnéeStockée = new DonnéeFormulaire(titre, texte, lien);
 
             String cheminQRCode = "C:\\temp\\qrcode.png";
             ServiceQR.genererQRCode(donnéeStockée.getLien(), cheminQRCode, 200, 200);
 
-            String cheminPDF = "C:\\temp\\document.pdf";
-            ServicePDF.generatePDF(donnéeStockée.getTexte(), donnéeStockée.getLien(), cheminQRCode, cheminPDF);
+            ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPDF,  cheminQRCode);
 
         } catch (IllegalArgumentException e) {
             System.err.println("Données invalides : " + e.getMessage());

@@ -1,62 +1,79 @@
 package Services;
 
-import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import java.io.File;
 import java.io.IOException;
 
 public class ServicePDF {
-	public static void generatePDF(String texte, String lien, String cheminQRCode, String cheminPDF) {
-        if (texte == null || lien == null || cheminPDF == null || cheminPDF.trim().isEmpty()) {
-            System.err.println("Erreur : Texte, lien ou chemin PDF invalide.");
+	public static void generatePDF(String titre, String texte, String lien, String cheminPDF, String cheminQRCode) {
+        if (titre == null || texte == null || lien == null || cheminPDF == null || cheminQRCode == null) {
+            System.err.println("Erreur : Paramètres invalides.");
             return;
         }
 
-        PdfWriter writer;
         try {
-            writer = new PdfWriter(cheminPDF);
-        } catch (IOException e) {
-            System.err.println("Erreur lors de la création du PdfWriter : " + e.getMessage());
-            return;
-        }
+            // Générer le QR code
+            ServiceQR.genererQRCode(lien, cheminQRCode, 150, 150);
 
-        PdfDocument pdf;
-        Document document = null;
+            PdfWriter writer = new PdfWriter(cheminPDF);
+            PdfDocument pdf = new PdfDocument(writer);
+            Document document = new Document(pdf);
+            PdfFont boldFont = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD);
 
-        try {
-            pdf = new PdfDocument(writer);
-            document = new Document(pdf);
+            // Titre centré et gros
+            Paragraph titrePara = new Paragraph(titre)
+                    .setFontSize(24)
+                    .setFont(boldFont)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(20);
+            document.add(titrePara);
 
-            document.add(new Paragraph("Texte : " + texte));
-            document.add(new Paragraph("Lien : " + lien));
+            // Paragraphe de texte
+            Paragraph textePara = new Paragraph(texte)
+                    .setFontSize(14)
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setMarginBottom(20);
+            document.add(textePara);
 
-            if (cheminQRCode != null && !cheminQRCode.trim().isEmpty()) {
-                try {
-                    Image qrCode = new Image(ImageDataFactory.create(cheminQRCode));
-                    qrCode.setWidth(150);
-                    qrCode.setHeight(150);
-                    document.add(qrCode);
-                } catch (IOException e) {
-                    System.err.println("Impossible d'ajouter le QR code : " + e.getMessage());
-                }
+            // QR code
+            File qrFile = new File(cheminQRCode);
+            if (qrFile.exists()) {
+                ImageData imageData = ImageDataFactory.create(cheminQRCode);
+                Image qrImage = new Image(imageData)
+                        .setWidth(150)
+                        .setHeight(150)
+                        .setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER)
+                        .setMarginBottom(10);
+                document.add(qrImage);
+
+                // Lien sous le QR code
+                Paragraph lienPara = new Paragraph(lien)
+                        .setFontSize(10)
+                        .setFontColor(ColorConstants.BLUE)
+                        .setTextAlignment(TextAlignment.CENTER);
+                document.add(lienPara);
+            } else {
+                System.err.println("QR code non trouvé pour ajout dans le PDF : " + cheminQRCode);
             }
 
+            document.close();
             System.out.println("PDF généré avec succès : " + cheminPDF);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Erreur lors de la génération du PDF : " + e.getMessage());
-        } finally {
-            if (document != null) {
-                try {
-                    document.close();
-                } catch (Exception e) {
-                    System.err.println("Erreur lors de la fermeture du document PDF : " + e.getMessage());
-                }
-            }
+        } catch (Exception e) {
+            System.err.println("Erreur inattendue : " + e.getMessage());
         }
     }
 }
