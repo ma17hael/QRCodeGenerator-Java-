@@ -26,12 +26,13 @@ public class UserInterface extends JFrame {
 	private JTextField TextField;
 	private JTextField cheminPDFField;
 	private JButton choisirFichierButton;
+	private JTextField IMGPath;
 
 	public UserInterface(ControleurFormulaire controle) {
 		this.controleur = controle;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 531);
+		setBounds(100, 100, 520, 635);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -59,12 +60,13 @@ public class UserInterface extends JFrame {
 		
 		JButton ValidateButton = new JButton("Passez à la personnalisation");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ValidateButton.setBounds(26, 420, 471, 58);
+		ValidateButton.setBounds(25, 530, 471, 58);
 		ValidateButton.addActionListener(e ->  {
 			try {
 		        String titre = TitleTextField.getText().trim();
 		        String texte = TextField.getText().trim();
 		        String lien = LinkTextField.getText().trim();
+		        String cheminImage = IMGPath.getText().trim();		        
 		        String cheminPDF = cheminPDFField.getText().trim();
 		        if (titre.isEmpty() || lien.isEmpty() || cheminPDF.isEmpty()) {
 		            javax.swing.JOptionPane.showMessageDialog(
@@ -75,7 +77,7 @@ public class UserInterface extends JFrame {
 		            );
 		            return;
 		        }
-		        controleur.demandeUInterfaceDonnées(titre, texte, lien, cheminPDF);
+		        controleur.demandeUInterfaceDonnées(titre, texte, lien, cheminPDF, cheminImage);
 		        this.dispose();
 		    } catch (Exception ex) {
 		        javax.swing.JOptionPane.showMessageDialog(
@@ -105,13 +107,13 @@ public class UserInterface extends JFrame {
 		contentPane.add(TextLabel);
 		
 		cheminPDFField = new JTextField();
-		cheminPDFField.setBounds(25, 330, 472, 30);
+		cheminPDFField.setBounds(24, 440, 472, 30);
 		cheminPDFField.setEditable(false); // l'utilisateur ne peut pas écrire dedans
 		contentPane.add(cheminPDFField);
 
 		choisirFichierButton = new JButton("Choisir l'emplacement");
 		choisirFichierButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		choisirFichierButton.setBounds(25, 370, 471, 30);
+		choisirFichierButton.setBounds(24, 480, 471, 30);
 		choisirFichierButton.addActionListener(e -> {
 		    JFileChooser fileChooser = new JFileChooser();
 		    fileChooser.setDialogTitle("Enregistrer le PDF");
@@ -129,6 +131,35 @@ public class UserInterface extends JFrame {
 		    }
 		});
 		contentPane.add(choisirFichierButton);
+		
+		JLabel IMGLabel = new JLabel("Image :");
+		IMGLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		IMGLabel.setBounds(10, 304, 210, 58);
+		contentPane.add(IMGLabel);
+		
+		JButton choisirIMGButton = new JButton("Choisir l'image à incorporer");
+		choisirIMGButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		choisirIMGButton.setBounds(25, 381, 471, 30);
+		choisirIMGButton.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+		    fileChooser.setDialogTitle("Sélectionner une image");
+		    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+		        "Images (JPG, PNG, GIF)", "jpg", "jpeg", "png", "gif"
+		    );
+		    fileChooser.setFileFilter(filter);
+
+		    int result = fileChooser.showOpenDialog(this);
+		    if (result == JFileChooser.APPROVE_OPTION) {
+		        File fichier = fileChooser.getSelectedFile();
+		        IMGPath.setText(fichier.getAbsolutePath());
+		    }
+		});
+		contentPane.add(choisirIMGButton);
+		
+		IMGPath = new JTextField();
+		IMGPath.setEditable(false);
+		IMGPath.setBounds(25, 349, 472, 30);
+		contentPane.add(IMGPath);
 
 	}
 }

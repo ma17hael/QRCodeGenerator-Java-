@@ -6,6 +6,7 @@ public class DonnéeFormulaire {
 	private String titre;
 	private DonnéesPersonnalisation donnéesPers;
 	
+	
 	public DonnéeFormulaire(String titre, String texte, String lien) {
 		this.titre = titre;
 		this.texte = texte;

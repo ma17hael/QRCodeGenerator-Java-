@@ -10,6 +10,7 @@ public class ControleurFormulaire {
 	private PersonalizationInterface pinterface;
 	private DonnéeFormulaire donnéeStockée;
 	private String CheminPdf;
+	private String CheminImage;
 	
 	public ControleurFormulaire() {
 		uinterface = new UserInterface(this);
@@ -29,14 +30,15 @@ public class ControleurFormulaire {
 	
 	public void demandePersonalization(DonnéesPersonnalisation pers) {
 		donnéeStockée.setDonnéesPers(pers);
-		ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPdf, donnéeStockée.getDonnéesPers());
+		ServicePDF.generatePDF(donnéeStockée.getTitre(), donnéeStockée.getTexte(), donnéeStockée.getLien(), CheminPdf, CheminImage, donnéeStockée.getDonnéesPers());
 		
 	}
 	
-	public void demandeUInterfaceDonnées(String titre, String texte, String lien, String CheminPDF) {
+	public void demandeUInterfaceDonnées(String titre, String texte, String lien, String CheminPDF, String CheminIMG) {
         try {
             donnéeStockée = new DonnéeFormulaire(titre, texte, lien);
             CheminPdf = CheminPDF;
+            CheminImage = CheminIMG;
         } catch (IllegalArgumentException e) {
         	throw new IllegalArgumentException("Champs manquants ou chemin invalide :" + e.getMessage());
         } catch (Exception e) {
