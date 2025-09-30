@@ -1,11 +1,13 @@
 package Vue;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controleur.ControleurFormulaire;
+import Modele.DonnéesPersonnalisation;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -32,23 +34,6 @@ public class PersonalizationInterface extends JFrame {
 	private JCheckBox BoldCheckBox_1;
 	private JCheckBox UnderlineCheckBox_1;
 	private JLabel TextPersonalizationPreview_1;
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PersonalizationInterface frame = new PersonalizationInterface();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	/**
-	 * Create the frame.
-	 */
-	
 	private void updateTitlePreviewFont() {
 		String fontName = (String) FontComboBox.getSelectedItem();
 		int fontSize = (Integer) SizeComboBox.getSelectedItem();
@@ -87,7 +72,7 @@ public class PersonalizationInterface extends JFrame {
 		
 	}
 	
-	public PersonalizationInterface() {
+	public PersonalizationInterface(ControleurFormulaire controleur) {
 		Integer[] sizes = new Integer[33];
 		for (int i = 0, val = 8; val <= 72; i++, val += 2) {
 			sizes[i] = val;
@@ -257,9 +242,43 @@ public class PersonalizationInterface extends JFrame {
 		VisualisationLabel_1.setBounds(528, 289, 81, 41);
 		contentPane.add(VisualisationLabel_1);
 		
-		JButton btnNewButton = new JButton("Valider la personnalisation");
+		JButton btnNewButton = new JButton("Générer le PDF Personnalisé");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(10, 460, 611, 60);
+		btnNewButton.addActionListener(e -> {
+			try {
+				DonnéesPersonnalisation perso = new DonnéesPersonnalisation();
+				// --- Titre ---
+				perso.setTitleFontName((String) FontComboBox.getSelectedItem());
+				perso.setTitleFontSize((Integer) SizeComboBox.getSelectedItem());
+				perso.setTitleBold(BoldCheckBox.isSelected());
+				perso.setTitleItalic(ItalicCheckBox.isSelected());
+				perso.setTitleUnderline(UnderlineCheckBox.isSelected());
+				perso.setTitleColor(TextPersonalizationPreview.getForeground());
+
+				// --- Texte ---
+				perso.setTextFontName((String) FontComboBox_1.getSelectedItem());
+				perso.setTextFontSize((Integer) SizeComboBox_1.getSelectedItem());
+				perso.setTextBold(BoldCheckBox_1.isSelected());
+				perso.setTextItalic(ItalicCheckBox_1.isSelected());
+				perso.setTextUnderline(UnderlineCheckBox_1.isSelected());
+				perso.setTextColor(TextPersonalizationPreview_1.getForeground());
+				controleur.demandePersonalization(perso);
+				javax.swing.JOptionPane.showMessageDialog(
+						this,
+						"Le PDF a été généré avec succès !",
+						"Succès",
+						javax.swing.JOptionPane.INFORMATION_MESSAGE
+						);
+			} catch (Exception ex){
+				 javax.swing.JOptionPane.showMessageDialog(
+				        this,
+				        "Une erreur inattendue est survenue : " + ex.getMessage(),
+				        "Erreur",
+				        javax.swing.JOptionPane.ERROR_MESSAGE
+				 );
+			}
+		});
 		contentPane.add(btnNewButton);
 
 	}

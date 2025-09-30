@@ -57,7 +57,7 @@ public class UserInterface extends JFrame {
 		LinkTextField.setBounds(107, 260, 371, 49);
 		contentPane.add(LinkTextField);
 		
-		JButton ValidateButton = new JButton("Générer le PDF");
+		JButton ValidateButton = new JButton("Passez à la personnalisation");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		ValidateButton.setBounds(26, 420, 471, 58);
 		ValidateButton.addActionListener(e ->  {
@@ -66,7 +66,6 @@ public class UserInterface extends JFrame {
 		        String texte = TextField.getText().trim();
 		        String lien = LinkTextField.getText().trim();
 		        String cheminPDF = cheminPDFField.getText().trim();
-
 		        if (titre.isEmpty() || lien.isEmpty() || cheminPDF.isEmpty()) {
 		            javax.swing.JOptionPane.showMessageDialog(
 		                this,
@@ -76,15 +75,8 @@ public class UserInterface extends JFrame {
 		            );
 		            return;
 		        }
-
 		        controleur.demandeUInterfaceDonnées(titre, texte, lien, cheminPDF);
-		        javax.swing.JOptionPane.showMessageDialog(
-		            this,
-		            "Le PDF a été généré avec succès !",
-		            "Succès",
-		            javax.swing.JOptionPane.INFORMATION_MESSAGE
-		        );
-
+		        this.dispose();
 		    } catch (Exception ex) {
 		        javax.swing.JOptionPane.showMessageDialog(
 		            this,
