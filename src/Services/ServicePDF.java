@@ -2,6 +2,8 @@ package Services;
 
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
@@ -51,8 +53,8 @@ public class ServicePDF {
 	}
 	
 	@SuppressWarnings("resource")
-	public static void generatePDF(String titre, String texte, String lien, String cheminPDF, DonnéesPersonnalisation perso) {
-        if (titre == null || texte == null || lien == null || cheminPDF == null || perso == null) {
+	public static void generatePDF(String titre, String texte, String lien, String cheminPDF, String cheminImage, DonnéesPersonnalisation perso) {
+        if (titre == null || texte == null || lien == null || cheminPDF == null || perso == null || cheminImage == null) {
         	throw new IllegalArgumentException("Paramètres invalides pour la génération du PDF");
         }
 
@@ -111,10 +113,47 @@ public class ServicePDF {
                     .setTextAlignment(TextAlignment.LEFT)
                     .setMarginBottom(20);
             document.add(textePara);
+            
+            if (cheminImage != null && !cheminImage.isEmpty()) {
+                try {
+                    ImageData imageData = ImageDataFactory.create(cheminImage);
+                    Image image = new Image(imageData);
 
-            Image qrCodeImage = ServiceQR.genererQRCode(lien, 200, 200);
+                    if (perso.getIMGWidth() > 0 && perso.getIMGLength() > 0) {
+                        image.scaleToFit(perso.getIMGWidth(), perso.getIMGLength());
+                    } else {
+                        image.scaleToFit(50, 50); // fallback
+                    }
+                    switch (perso.getIMGPosition()) {
+                    case "A Droite":
+                    	image.setTextAlignment(TextAlignment.RIGHT);
+                    	break;
+                    case "Centré":
+                    	image.setTextAlignment(TextAlignment.CENTER);
+                    	break;
+                    case "A Gauche":
+                    	image.setTextAlignment(TextAlignment.LEFT);
+                    	break;
+                    }
+                    document.add(image);
+                } catch (Exception e) {
+                    System.err.println("Erreur lors de l’ajout de l’image : " + e.getMessage());
+                }
+            }
+
+            Image qrCodeImage = ServiceQR.genererQRCode(lien, perso.getQRWidth(), perso.getQRLength());
             if (qrCodeImage != null) {
-                qrCodeImage.setAutoScale(true);
+            	switch (perso.getQRPosition()) {
+                case "A Droite":
+                	qrCodeImage.setTextAlignment(TextAlignment.RIGHT);
+                	break;
+                case "Centré":
+                	qrCodeImage.setTextAlignment(TextAlignment.CENTER);
+                	break;
+                case "A Gauche":
+                	qrCodeImage.setTextAlignment(TextAlignment.LEFT);
+                	break;
+                }
                 qrCodeImage.setMarginTop(20);
                 qrCodeImage.setMarginBottom(5);
                 document.add(qrCodeImage);
