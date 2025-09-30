@@ -26,13 +26,12 @@ public class UserInterface extends JFrame {
 	private JTextField TextField;
 	private JTextField cheminPDFField;
 	private JButton choisirFichierButton;
-	private JLabel lblNewLabel;
 
 	public UserInterface(ControleurFormulaire controle) {
 		this.controleur = controle;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 596);
+		setBounds(100, 100, 520, 531);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -60,7 +59,7 @@ public class UserInterface extends JFrame {
 		
 		JButton ValidateButton = new JButton("Générer le PDF");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ValidateButton.setBounds(25, 491, 471, 58);
+		ValidateButton.setBounds(26, 420, 471, 58);
 		ValidateButton.addActionListener(e ->  {
 			try {
 		        String titre = TitleTextField.getText().trim();
@@ -138,13 +137,6 @@ public class UserInterface extends JFrame {
 		    }
 		});
 		contentPane.add(choisirFichierButton);
-		
-		lblNewLabel = new JLabel("Le PDF à bien été chargée dans le répertoire selectionné");
-		lblNewLabel.setEnabled(false);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(25, 410, 471, 71);
-		contentPane.add(lblNewLabel);
 
 	}
 }
