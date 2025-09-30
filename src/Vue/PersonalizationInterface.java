@@ -99,7 +99,7 @@ public class PersonalizationInterface extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel AppTitle = new JLabel("Personalisation du PDF");
+		JLabel AppTitle = new JLabel("Personnalisation du PDF");
 		AppTitle.setBounds(130, 10, 393, 60);
 		AppTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		AppTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
