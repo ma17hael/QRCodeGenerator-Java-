@@ -4,19 +4,18 @@ public class DonnéeFormulaire {
 	private String texte;
 	private String lien;
 	private String titre;
+	private DonnéesPersonnalisation donnéesPers;
 	
 	public DonnéeFormulaire(String titre, String texte, String lien) {
 		this.titre = titre;
 		this.texte = texte;
 		this.lien = lien;
+		this.donnéesPers = null;
 	}
 	
-
 	public String getTitre() {
 		return titre;
 	}
-
-
 	public void setTitre(String titre) {
 		if (titre == null || titre.trim().isEmpty()) {
             throw new IllegalArgumentException("Le titre ne peux pas être vide");
@@ -24,11 +23,9 @@ public class DonnéeFormulaire {
 		this.titre = titre;
 	}
 
-
 	public String getTexte() {
 		return texte;
 	}
-
 	public void setTexte(String texte) {
 		this.texte = texte;
 	}
@@ -36,11 +33,18 @@ public class DonnéeFormulaire {
 	public String getLien() {
 		return lien;
 	}
-
 	public void setLien(String lien) {
 		if (texte == null || texte.trim().isEmpty()) {
             throw new IllegalArgumentException("Le lien ne peut pas être vide.");
         }
 		this.lien = lien;
 	}
+
+	public DonnéesPersonnalisation getDonnéesPers() {
+		return donnéesPers;
+	}
+	public void setDonnéesPers(DonnéesPersonnalisation donnéesPers) {
+		this.donnéesPers = donnéesPers;
+	}
+	
 }
