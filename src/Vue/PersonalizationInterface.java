@@ -17,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
+import javax.swing.JTextField;
 
 public class PersonalizationInterface extends JFrame {
 
@@ -34,6 +35,13 @@ public class PersonalizationInterface extends JFrame {
 	private JCheckBox BoldCheckBox_1;
 	private JCheckBox UnderlineCheckBox_1;
 	private JLabel TextPersonalizationPreview_1;
+	private JTextField QRCodeLengthField;
+	private JTextField QRCodeWidthField;
+	private JTextField ImageWidthField;
+	private JTextField ImageLengthField;
+	private JComboBox<String> QRCodePositionComboBox;
+	private JComboBox<String> ImagePositionComboBox;
+	
 	private void updateTitlePreviewFont() {
 		String fontName = (String) FontComboBox.getSelectedItem();
 		int fontSize = (Integer) SizeComboBox.getSelectedItem();
@@ -77,15 +85,16 @@ public class PersonalizationInterface extends JFrame {
 		for (int i = 0, val = 8; val <= 72; i++, val += 2) {
 			sizes[i] = val;
 		}
+		String[] positions = {"A Gauche", "Centré", "A Droite"};
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 645, 567);
+		setBounds(100, 100, 938, 567);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel AppTitle = new JLabel("Personnalisation du PDF");
-		AppTitle.setBounds(130, 10, 393, 60);
+		AppTitle.setBounds(263, 11, 393, 60);
 		AppTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		AppTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		contentPane.add(AppTitle);
@@ -98,12 +107,12 @@ public class PersonalizationInterface extends JFrame {
 		TextPersonalizationPreview = new JLabel("aA");
 		TextPersonalizationPreview.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		TextPersonalizationPreview.setHorizontalAlignment(SwingConstants.CENTER);
-		TextPersonalizationPreview.setBounds(516, 120, 105, 71);
+		TextPersonalizationPreview.setBounds(485, 123, 105, 71);
 		contentPane.add(TextPersonalizationPreview);
 		
 		JLabel VisualisationLabel = new JLabel("Visualisation");
 		VisualisationLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VisualisationLabel.setBounds(528, 93, 81, 41);
+		VisualisationLabel.setBounds(497, 96, 81, 41);
 		contentPane.add(VisualisationLabel);
 		
 		FontComboBox = new JComboBox<>(GraphicsEnvironment
@@ -180,7 +189,7 @@ public class PersonalizationInterface extends JFrame {
 		TextPersonalizationPreview_1 = new JLabel("aA");
 		TextPersonalizationPreview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		TextPersonalizationPreview_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		TextPersonalizationPreview_1.setBounds(516, 316, 105, 71);
+		TextPersonalizationPreview_1.setBounds(485, 319, 105, 71);
 		contentPane.add(TextPersonalizationPreview_1);
 		
 		JButton ColorButton_1 = new JButton("Choisir le couleur");
@@ -239,13 +248,13 @@ public class PersonalizationInterface extends JFrame {
 		
 		JLabel VisualisationLabel_1 = new JLabel("Visualisation");
 		VisualisationLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VisualisationLabel_1.setBounds(528, 289, 81, 41);
+		VisualisationLabel_1.setBounds(497, 292, 81, 41);
 		contentPane.add(VisualisationLabel_1);
 		
-		JButton btnNewButton = new JButton("Générer le PDF Personnalisé");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(10, 460, 611, 60);
-		btnNewButton.addActionListener(e -> {
+		JButton ValidateButton = new JButton("Générer le PDF Personnalisé");
+		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		ValidateButton.setBounds(10, 460, 903, 60);
+		ValidateButton.addActionListener(e -> {
 			try {
 				DonnéesPersonnalisation perso = new DonnéesPersonnalisation();
 				// --- Titre ---
@@ -263,6 +272,15 @@ public class PersonalizationInterface extends JFrame {
 				perso.setTextItalic(ItalicCheckBox_1.isSelected());
 				perso.setTextUnderline(UnderlineCheckBox_1.isSelected());
 				perso.setTextColor(TextPersonalizationPreview_1.getForeground());
+				
+				// --- IMAGE/QRCode ---
+				perso.setIMGLength(Integer.parseInt(ImageLengthField.getText().trim()));
+				perso.setIMGWidth(Integer.parseInt(ImageWidthField.getText().trim()));
+				perso.setIMGPosition((String) ImagePositionComboBox.getSelectedItem());
+				perso.setQRLength(Integer.parseInt(QRCodeLengthField.getText().trim()));
+				perso.setQRWidth(Integer.parseInt(QRCodeWidthField.getText().trim()));
+				perso.setQRPosition((String) QRCodePositionComboBox.getSelectedItem());
+				
 				controleur.demandePersonalization(perso);
 				javax.swing.JOptionPane.showMessageDialog(
 						this,
@@ -279,7 +297,75 @@ public class PersonalizationInterface extends JFrame {
 				 );
 			}
 		});
-		contentPane.add(btnNewButton);
+		contentPane.add(ValidateButton);
+		
+		JLabel QRCodePersonalizationLabel = new JLabel("Personnalisation du QRCode");
+		QRCodePersonalizationLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		QRCodePersonalizationLabel.setBounds(613, 62, 188, 30);
+		contentPane.add(QRCodePersonalizationLabel);
+		
+		JLabel LengthLabel = new JLabel("Longueur :");
+		LengthLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		LengthLabel.setBounds(636, 101, 75, 30);
+		contentPane.add(LengthLabel);
+		
+		JLabel WidthLabel = new JLabel("Largeur :");
+		WidthLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		WidthLabel.setBounds(636, 141, 75, 30);
+		contentPane.add(WidthLabel);
+		
+		JLabel lblPosition = new JLabel("Position :");
+		lblPosition.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPosition.setBounds(636, 179, 75, 30);
+		contentPane.add(lblPosition);
+		
+		QRCodeLengthField = new JTextField();
+		QRCodeLengthField.setBounds(721, 103, 192, 31);
+		contentPane.add(QRCodeLengthField);
+		QRCodeLengthField.setColumns(10);
+		
+		QRCodeWidthField = new JTextField();
+		QRCodeWidthField.setColumns(10);
+		QRCodeWidthField.setBounds(721, 142, 192, 31);
+		contentPane.add(QRCodeWidthField);
+		
+		QRCodePositionComboBox = new JComboBox<>(positions);
+		QRCodePositionComboBox.setBounds(721, 183, 192, 27);
+		contentPane.add(QRCodePositionComboBox);
+		
+		JLabel lblPosition_1 = new JLabel("Position :");
+		lblPosition_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPosition_1.setBounds(636, 375, 75, 30);
+		contentPane.add(lblPosition_1);
+		
+		ImagePositionComboBox = new JComboBox<>(positions);
+		ImagePositionComboBox.setBounds(721, 379, 192, 27);
+		contentPane.add(ImagePositionComboBox);
+		
+		ImageWidthField = new JTextField();
+		ImageWidthField.setColumns(10);
+		ImageWidthField.setBounds(721, 338, 192, 31);
+		contentPane.add(ImageWidthField);
+		
+		JLabel WidthLabel_1 = new JLabel("Largeur :");
+		WidthLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		WidthLabel_1.setBounds(636, 337, 75, 30);
+		contentPane.add(WidthLabel_1);
+		
+		JLabel LengthLabel_1 = new JLabel("Longueur :");
+		LengthLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		LengthLabel_1.setBounds(636, 297, 75, 30);
+		contentPane.add(LengthLabel_1);
+		
+		ImageLengthField = new JTextField();
+		ImageLengthField.setColumns(10);
+		ImageLengthField.setBounds(721, 299, 192, 31);
+		contentPane.add(ImageLengthField);
+		
+		JLabel ImagePersonalizationLabel = new JLabel("Personnalisation du Image");
+		ImagePersonalizationLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		ImagePersonalizationLabel.setBounds(613, 258, 188, 30);
+		contentPane.add(ImagePersonalizationLabel);
 
 	}
 }

@@ -15,6 +15,12 @@ public class DonnéesPersonnalisation {
 	private boolean isTextItalic;
 	private boolean isTextUnderline;
 	private Color textColor;
+	private int IMGLength;
+	private int IMGWidth;
+	private String IMGPosition;
+	private int QRLength;
+	private int QRWidth;
+	private String QRPosition;
 	
 	public DonnéesPersonnalisation() {
 		this.titleFontName = "Tahoma";
@@ -29,6 +35,12 @@ public class DonnéesPersonnalisation {
 		this.isTextItalic = false;
 		this.isTextUnderline = false;
 		this.textColor = Color.BLACK;
+		this.QRLength = 200;
+		this.QRWidth = 200;
+		this.QRPosition = "Centré";
+		this.IMGLength = 50;
+		this.IMGWidth = 50;
+		this.IMGPosition = "A Gauche";
 	}
 
 	public String getTitleFontName() {
@@ -113,5 +125,47 @@ public class DonnéesPersonnalisation {
 	}
 	public void setTextColor(Color textColor) {
 		this.textColor = textColor;
+	}
+
+	public int getIMGLength() {
+		return IMGLength;
+	}
+	public void setIMGLength(int iMGLength) {
+		IMGLength = iMGLength;
+	}
+
+	public int getIMGWidth() {
+		return IMGWidth;
+	}
+	public void setIMGWidth(int iMGWidth) {
+		IMGWidth = iMGWidth;
+	}
+
+	public String getIMGPosition() {
+		return IMGPosition;
+	}
+	public void setIMGPosition(String iMGPosition) {
+		IMGPosition = iMGPosition;
+	}
+
+	public int getQRLength() {
+		return QRLength;
+	}
+	public void setQRLength(int qRLength) {
+		QRLength = qRLength;
+	}
+
+	public int getQRWidth() {
+		return QRWidth;
+	}
+	public void setQRWidth(int qRWidth) {
+		QRWidth = qRWidth;
+	}
+
+	public String getQRPosition() {
+		return QRPosition;
+	}
+	public void setQRPosition(String qRPosition) {
+		QRPosition = qRPosition;
 	}
 }
