@@ -5,17 +5,29 @@ Il gère également la **sauvegarde et le chargement des projets** via JSON, et 
 ---
 ## Structure du projet
 src/
+
 ├─ Modele/
+
 │ ├─ DonnéesPersonnalisation.java
+
 │ ├─ ColorData.java
+
 │ └─ ProjectPDF.java
+
 ├─ Services/
+
 │ ├─ ServicePDF.java
+
 │ └─ ServiceQR.java
+
 ├─ Controleur/
+
 │ └─ ControleurFormulaire.java
+
 └─ JUNIT/
+
 └─ TestUnit.java
+
 ---
 
 ## Dossier `Modele/`
