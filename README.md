@@ -5,13 +5,18 @@ Il gère également la **sauvegarde et le chargement des projets** via JSON, et 
 ---
 ## Structure du projet
 src/<br>
+├─ Vue/<br>
+│ ├─ UserInterface.java<br>
+│ └─ PersonalizationInterface.java<br>
 ├─ Modele/<br>
+│ ├─ DonnéeFormulaire<br>
 │ ├─ DonnéesPersonnalisation.java<br>
 │ ├─ ColorData.java<br>
 │ └─ ProjectPDF.java<br>
 ├─ Services/<br>
 │ ├─ ServicePDF.java<br>
-│ └─ ServiceQR.java<br>
+│ ├─ ServiceQR.java<br>
+│ └─ ColorAdapter.java<br>
 ├─ Controleur/<br>
 │ └─ ControleurFormulaire.java<br>
 └─ JUNIT/<br>
@@ -19,7 +24,58 @@ src/<br>
 
 ---
 
+## Dossier `Vue/`
+
+### `PersonalizationInterface.java`
+- **Rôle :** Interface graphique pour personnaliser le PDF (polices, couleurs, images, QR Code).
+- **Fonctionnement :**
+    - **Permet de choisir police, taille, couleur, gras, italique, souligné pour le titre et le texte.**
+    - **Permet de configurer dimensions et positions pour l’image et le QR Code.**
+    - **Prévisualisation en temps réel des polices et couleurs.**
+    - **Boutons :**
+        - **Générer le PDF :** transmet les données au contrôleur pour créer le `PDF`.
+        - **Sauvegarder le projet :** sauvegarde les personnalisations dans un `JSON`.
+    - **Exemple d’usage dans ControleurFormulaire :**
+```java
+PersonalizationInterface window = new PersonalizationInterface(controleur);
+window.setVisible(true);
+```
+
+### `UserInterface.java`
+- **Rôle :** Interface graphique principale pour saisir le titre, texte, lien et choisir le PDF/image.
+- **Fonctionnement :**
+    - **Champs de saisie pour :**
+        - `Titre`, `Texte`, `Lien`
+        - `Chemin de sortie PDF`
+        - `Chemin de l'image à insérer`
+    - **Boutons :**
+        - **Passez à la personnalisation :** valide les champs et ouvre `PersonalizationInterface`.
+        - **Choisir l'emplacement :** ouvre un `JFileChooser` pour sélectionner le PDF.
+        - **Choisir l'image à incorporer :** ouvre un `JFileChooser` pour l’image.
+        - **Charger un projet :** charge un projet existant via le `ControleurFormulaire`.
+- **Exemple d’usage dans ControleurFormulaire :**
+```java
+UserInterface window = new UserInterface(controleur);
+window.setVisible(true);
+```
+
 ## Dossier `Modele/`
+
+### `DonnéeFormulaire.java`
+- **Rôle :** Contient le contenu du PDF (`titre`, `texte`, `lien`) ainsi que sa personnalisation pour centralisation.
+- **Fonctionnement :**
+    - `Titre` : String.
+    - `Texte` : String.
+    - `Lien` : String.
+    - Personnalisation via `DonnéesPersonalisation`
+    - Utilsé par `ControleurFormulaire` pour sauvegarder les données et les utilisé pour la `génération de PDF/QR Code.
+- **Exemple :**
+```java
+DonnéeFormulaire contenu = new DonnéeFormulaire();
+contenu.setTitle("Ceci est un exemple");
+contenu.setTexte("Cette exemple démontre le fonctionnement de DonnéeFormulaire");
+contenu.setLien("http://Ceci_est_le_lien/DuQRCode.com`");
+```
 
 ### `DonnéesPersonnalisation.java`
 - **Rôle :** Contient toutes les options de personnalisation pour le PDF.
