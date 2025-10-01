@@ -4,29 +4,18 @@ Ce projet Java permet de **générer des PDF personnalisés** incluant du texte,
 Il gère également la **sauvegarde et le chargement des projets** via JSON, et propose une **logique contrôleur** pour orchestrer la génération.
 ---
 ## Structure du projet
-src/
-
-├─ Modele/
-
-│ ├─ DonnéesPersonnalisation.java
-
-│ ├─ ColorData.java
-
-│ └─ ProjectPDF.java
-
-├─ Services/
-
-│ ├─ ServicePDF.java
-
-│ └─ ServiceQR.java
-
-├─ Controleur/
-
-│ └─ ControleurFormulaire.java
-
-└─ JUNIT/
-
-└─ TestUnit.java
+src/<br>
+├─ Modele/<br>
+│ ├─ DonnéesPersonnalisation.java<br>
+│ ├─ ColorData.java<br>
+│ └─ ProjectPDF.java<br>
+├─ Services/<br>
+│ ├─ ServicePDF.java<br>
+│ └─ ServiceQR.java<br>
+├─ Controleur/<br>
+│ └─ ControleurFormulaire.java<br>
+└─ JUNIT/<br>
+└─ TestUnit.java<br>
 
 ---
 
