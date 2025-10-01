@@ -101,6 +101,9 @@ public class ServicePDF {
                     		perso.getTitleColor().getBlue()))
                     .setTextAlignment(TextAlignment.CENTER)
                     .setMarginBottom(20);
+            if (perso.isTitleUnderline()) {
+            	titrePara.setUnderline();
+            }
             document.add(titrePara);
 
             Paragraph textePara = new Paragraph(texte)
@@ -112,6 +115,9 @@ public class ServicePDF {
                     		perso.getTextColor().getRed()))
                     .setTextAlignment(TextAlignment.LEFT)
                     .setMarginBottom(20);
+            if (perso.isTextUnderline()) {
+            	textePara.setUnderline();
+            }
             document.add(textePara);
             
             if (cheminImage != null && !cheminImage.isEmpty()) {
