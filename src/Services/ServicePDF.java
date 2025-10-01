@@ -124,39 +124,40 @@ public class ServicePDF {
                     } else {
                         image.scaleToFit(50, 50); // fallback
                     }
+                    Paragraph imgP = new Paragraph().add(image);
                     switch (perso.getIMGPosition()) {
                     case "A Droite":
-                    	image.setTextAlignment(TextAlignment.RIGHT);
+                    	imgP.setTextAlignment(TextAlignment.RIGHT);
                     	break;
                     case "Centré":
-                    	image.setTextAlignment(TextAlignment.CENTER);
+                    	imgP.setTextAlignment(TextAlignment.CENTER);
                     	break;
                     case "A Gauche":
-                    	image.setTextAlignment(TextAlignment.LEFT);
+                    	imgP.setTextAlignment(TextAlignment.LEFT);
                     	break;
                     }
-                    document.add(image);
+                    document.add(imgP);
                 } catch (Exception e) {
                     System.err.println("Erreur lors de l’ajout de l’image : " + e.getMessage());
                 }
             }
-
             Image qrCodeImage = ServiceQR.genererQRCode(lien, perso.getQRWidth(), perso.getQRLength());
             if (qrCodeImage != null) {
-            	switch (perso.getQRPosition()) {
-                case "A Droite":
-                	qrCodeImage.setTextAlignment(TextAlignment.RIGHT);
-                	break;
-                case "Centré":
-                	qrCodeImage.setTextAlignment(TextAlignment.CENTER);
-                	break;
-                case "A Gauche":
-                	qrCodeImage.setTextAlignment(TextAlignment.LEFT);
-                	break;
-                }
                 qrCodeImage.setMarginTop(20);
                 qrCodeImage.setMarginBottom(5);
-                document.add(qrCodeImage);
+                Paragraph qrP = new Paragraph().add(qrCodeImage);
+                switch (perso.getQRPosition()) {
+                case "A Droite":
+                	qrP.setTextAlignment(TextAlignment.RIGHT);
+                	break;
+                case "Centré":
+                	qrP.setTextAlignment(TextAlignment.CENTER);
+                	break;
+                case "A Gauche":
+                	qrP.setTextAlignment(TextAlignment.LEFT);
+                	break;
+                }
+                document.add(qrP);
                 Paragraph lienPara = new Paragraph(lien)
                         .setFontSize(10)
                         .setFontColor(ColorConstants.BLUE)
