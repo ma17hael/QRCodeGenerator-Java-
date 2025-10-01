@@ -124,7 +124,7 @@ projet.setPersonnalisation(perso);
 Image qr = ServiceQR.genererQRCode("https://github.com", 200, 200);
 ```
 
-## `ServicePDF.java`
+### `ServicePDF.java`
 - **Rôle :** Génère un PDF complet avec `texte`, `images` et `QR Codes`.
 - **Fonctionnement :**
     - Validation des paramètres.
@@ -150,14 +150,14 @@ ServicePDF.generatePDF(
 
 ## Dossier `Controleur/`
 
-## `ControleurFormulaire.java`
+### `ControleurFormulaire.java`
 - **Rôle :** Interface entre les données utilisateur et la génération PDF.
 - **Fonctionnement :**
     - demandeUInterfaceDonnées() : reçoit `titre`, `texte`, `lien` et chemins `PDF/Image`.
     - Valide les champs et stocke les données.
     - Appelle `ServicePDF.generatePDF()` pour créer le PDF.
 
-### Dossier `JUNIT/`
+## Dossier `JUNIT/`
 
 ### `TestUnit.java`
 - **Rôle :** Contient les tests unitaires.
