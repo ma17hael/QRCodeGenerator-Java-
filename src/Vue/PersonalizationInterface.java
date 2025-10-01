@@ -7,11 +7,12 @@ import javax.swing.border.EmptyBorder;
 
 import Controleur.ControleurFormulaire;
 import Modele.DonnéesPersonnalisation;
-
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import Modele.ColorData;
+
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
-
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -23,24 +24,24 @@ public class PersonalizationInterface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox<String> FontComboBox;
-	private JComboBox<String> FontComboBox_1;
-	private JComboBox<Integer> SizeComboBox;
-	private JComboBox<Integer> SizeComboBox_1;
-	private JCheckBox ItalicCheckBox;
-	private JCheckBox BoldCheckBox;
-	private JCheckBox UnderlineCheckBox;
-	private JLabel TextPersonalizationPreview;
-	private JCheckBox ItalicCheckBox_1;
-	private JCheckBox BoldCheckBox_1;
-	private JCheckBox UnderlineCheckBox_1;
-	private JLabel TextPersonalizationPreview_1;
-	private JTextField QRCodeLengthField;
-	private JTextField QRCodeWidthField;
-	private JTextField ImageWidthField;
-	private JTextField ImageLengthField;
-	private JComboBox<String> QRCodePositionComboBox;
-	private JComboBox<String> ImagePositionComboBox;
+	public JComboBox<String> FontComboBox;
+	public JComboBox<String> FontComboBox_1;
+	public JComboBox<Integer> SizeComboBox;
+	public JComboBox<Integer> SizeComboBox_1;
+	public JCheckBox ItalicCheckBox;
+	public JCheckBox BoldCheckBox;
+	public JCheckBox UnderlineCheckBox;
+	public JLabel TextPersonalizationPreview;
+	public JCheckBox ItalicCheckBox_1;
+	public JCheckBox BoldCheckBox_1;
+	public JCheckBox UnderlineCheckBox_1;
+	public JLabel TextPersonalizationPreview_1;
+	public JTextField QRCodeLengthField;
+	public JTextField QRCodeWidthField;
+	public JTextField ImageWidthField;
+	public JTextField ImageLengthField;
+	public JComboBox<String> QRCodePositionComboBox;
+	public JComboBox<String> ImagePositionComboBox;
 	
 	private void updateTitlePreviewFont() {
 		String fontName = (String) FontComboBox.getSelectedItem();
@@ -107,12 +108,12 @@ public class PersonalizationInterface extends JFrame {
 		TextPersonalizationPreview = new JLabel("aA");
 		TextPersonalizationPreview.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		TextPersonalizationPreview.setHorizontalAlignment(SwingConstants.CENTER);
-		TextPersonalizationPreview.setBounds(485, 123, 105, 71);
+		TextPersonalizationPreview.setBounds(505, 123, 105, 71);
 		contentPane.add(TextPersonalizationPreview);
 		
 		JLabel VisualisationLabel = new JLabel("Visualisation");
 		VisualisationLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VisualisationLabel.setBounds(497, 96, 81, 41);
+		VisualisationLabel.setBounds(517, 96, 81, 41);
 		contentPane.add(VisualisationLabel);
 		
 		FontComboBox = new JComboBox<>(GraphicsEnvironment
@@ -189,7 +190,7 @@ public class PersonalizationInterface extends JFrame {
 		TextPersonalizationPreview_1 = new JLabel("aA");
 		TextPersonalizationPreview_1.setHorizontalAlignment(SwingConstants.CENTER);
 		TextPersonalizationPreview_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		TextPersonalizationPreview_1.setBounds(485, 319, 105, 71);
+		TextPersonalizationPreview_1.setBounds(505, 322, 105, 71);
 		contentPane.add(TextPersonalizationPreview_1);
 		
 		JButton ColorButton_1 = new JButton("Choisir le couleur");
@@ -248,12 +249,12 @@ public class PersonalizationInterface extends JFrame {
 		
 		JLabel VisualisationLabel_1 = new JLabel("Visualisation");
 		VisualisationLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		VisualisationLabel_1.setBounds(497, 292, 81, 41);
+		VisualisationLabel_1.setBounds(516, 291, 81, 41);
 		contentPane.add(VisualisationLabel_1);
 		
 		JButton ValidateButton = new JButton("Générer le PDF Personnalisé");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ValidateButton.setBounds(10, 460, 903, 60);
+		ValidateButton.setBounds(10, 460, 662, 60);
 		ValidateButton.addActionListener(e -> {
 			try {
 				DonnéesPersonnalisation perso = new DonnéesPersonnalisation();
@@ -263,7 +264,7 @@ public class PersonalizationInterface extends JFrame {
 				perso.setTitleBold(BoldCheckBox.isSelected());
 				perso.setTitleItalic(ItalicCheckBox.isSelected());
 				perso.setTitleUnderline(UnderlineCheckBox.isSelected());
-				perso.setTitleColor(TextPersonalizationPreview.getForeground());
+				perso.setTitleColor(new ColorData(TextPersonalizationPreview.getForeground()));
 
 				// --- Texte ---
 				perso.setTextFontName((String) FontComboBox_1.getSelectedItem());
@@ -271,7 +272,7 @@ public class PersonalizationInterface extends JFrame {
 				perso.setTextBold(BoldCheckBox_1.isSelected());
 				perso.setTextItalic(ItalicCheckBox_1.isSelected());
 				perso.setTextUnderline(UnderlineCheckBox_1.isSelected());
-				perso.setTextColor(TextPersonalizationPreview_1.getForeground());
+				perso.setTextColor(new ColorData(TextPersonalizationPreview_1.getForeground()));
 				
 				// --- IMAGE/QRCode ---
 				perso.setIMGLength(Integer.parseInt(ImageLengthField.getText().trim()));
@@ -366,6 +367,44 @@ public class PersonalizationInterface extends JFrame {
 		ImagePersonalizationLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		ImagePersonalizationLabel.setBounds(613, 258, 188, 30);
 		contentPane.add(ImagePersonalizationLabel);
+		
+		JButton SaveButton = new JButton("Sauvegarder le projet");
+		SaveButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		SaveButton.setBounds(682, 460, 232, 60);
+		SaveButton.addActionListener(e -> {
+			    // Demander si on veut aussi sauvegarder la personnalisation
+			    int choix = JOptionPane.showConfirmDialog(null,
+			            "Voulez-vous aussi sauvegarder la personnalisation ?",
+			            "Sauvegarde",
+			            JOptionPane.YES_NO_OPTION);
+			    DonnéesPersonnalisation perso = new DonnéesPersonnalisation();
+				// --- Titre ---
+				perso.setTitleFontName((String) FontComboBox.getSelectedItem());
+				perso.setTitleFontSize((Integer) SizeComboBox.getSelectedItem());
+				perso.setTitleBold(BoldCheckBox.isSelected());
+				perso.setTitleItalic(ItalicCheckBox.isSelected());
+				perso.setTitleUnderline(UnderlineCheckBox.isSelected());
+				perso.setTitleColor(new ColorData(TextPersonalizationPreview.getForeground()));
+
+				// --- Texte ---
+				perso.setTextFontName((String) FontComboBox_1.getSelectedItem());
+				perso.setTextFontSize((Integer) SizeComboBox_1.getSelectedItem());
+				perso.setTextBold(BoldCheckBox_1.isSelected());
+				perso.setTextItalic(ItalicCheckBox_1.isSelected());
+				perso.setTextUnderline(UnderlineCheckBox_1.isSelected());
+				perso.setTextColor(new ColorData(TextPersonalizationPreview_1.getForeground()));
+					
+				// --- IMAGE/QRCode ---
+				perso.setIMGLength(Integer.parseInt(ImageLengthField.getText().trim()));
+				perso.setIMGWidth(Integer.parseInt(ImageWidthField.getText().trim()));
+				perso.setIMGPosition((String) ImagePositionComboBox.getSelectedItem());
+				perso.setQRLength(Integer.parseInt(QRCodeLengthField.getText().trim()));
+				perso.setQRWidth(Integer.parseInt(QRCodeWidthField.getText().trim()));
+				perso.setQRPosition((String) QRCodePositionComboBox.getSelectedItem());
+			    
+				controleur.SauvegardeProject(perso, choix);
+		});
+		contentPane.add(SaveButton);
 
 	}
 }

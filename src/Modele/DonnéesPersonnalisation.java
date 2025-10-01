@@ -8,13 +8,13 @@ public class DonnéesPersonnalisation {
 	private boolean isTitleBold;
 	private boolean isTitleItalic;
 	private boolean isTitleUnderline;
-	private Color titleColor;
+	private ColorData titleColor;
 	private String textFontName;
 	private int textFontSize;
 	private boolean isTextBold;
 	private boolean isTextItalic;
 	private boolean isTextUnderline;
-	private Color textColor;
+	private ColorData textColor;
 	private int IMGLength;
 	private int IMGWidth;
 	private String IMGPosition;
@@ -28,13 +28,13 @@ public class DonnéesPersonnalisation {
 		this.isTitleBold = false;
 		this.isTitleItalic = false;
 		this.isTitleUnderline = false;
-		this.textColor = Color.BLACK;
+		this.titleColor = new ColorData(Color.BLACK);
 		this.textFontName = "Tahoma";
 		this.textFontSize = 15;
 		this.isTextBold = false;
 		this.isTextItalic = false;
 		this.isTextUnderline = false;
-		this.textColor = Color.BLACK;
+		this.textColor = new ColorData(Color.BLACK);
 		this.QRLength = 200;
 		this.QRWidth = 200;
 		this.QRPosition = "Centré";
@@ -78,10 +78,10 @@ public class DonnéesPersonnalisation {
 		this.isTitleUnderline = isTitleUnderline;
 	}
 
-	public Color getTitleColor() {
+	public ColorData getTitleColor() {
 		return titleColor;
 	}
-	public void setTitleColor(Color titleColor) {
+	public void setTitleColor(ColorData titleColor) {
 		this.titleColor = titleColor;
 	}
 
@@ -120,10 +120,10 @@ public class DonnéesPersonnalisation {
 		this.isTextUnderline = isTextUnderline;
 	}
 
-	public Color getTextColor() {
+	public ColorData getTextColor() {
 		return textColor;
 	}
-	public void setTextColor(Color textColor) {
+	public void setTextColor(ColorData textColor) {
 		this.textColor = textColor;
 	}
 

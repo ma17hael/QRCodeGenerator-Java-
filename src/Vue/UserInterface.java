@@ -20,13 +20,13 @@ public class UserInterface extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField TitleTextField;
-	private JTextField LinkTextField;
+	public JTextField TitleTextField;
+	public JTextField LinkTextField;
 	private ControleurFormulaire controleur;
-	private JTextField TextField;
-	private JTextField cheminPDFField;
+	public JTextField TextField;
+	public JTextField cheminPDFField;
 	private JButton choisirFichierButton;
-	private JTextField IMGPath;
+	public JTextField IMGPath;
 
 	public UserInterface(ControleurFormulaire controle) {
 		this.controleur = controle;
@@ -60,7 +60,7 @@ public class UserInterface extends JFrame {
 		
 		JButton ValidateButton = new JButton("Passez à la personnalisation");
 		ValidateButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		ValidateButton.setBounds(25, 530, 471, 58);
+		ValidateButton.setBounds(25, 530, 299, 58);
 		ValidateButton.addActionListener(e ->  {
 			try {
 		        String titre = TitleTextField.getText().trim();
@@ -71,7 +71,7 @@ public class UserInterface extends JFrame {
 		        if (titre.isEmpty() || lien.isEmpty() || cheminPDF.isEmpty()) {
 		            javax.swing.JOptionPane.showMessageDialog(
 		                this,
-		                "Veuillez remplir tous les champs et sélectionner un emplacement pour le PDF.",
+		                "Veuillez remplir tous les champs et sélectionner un emplacement pour le PDF avant de passer la personnalisation !.",
 		                "Erreur",
 		                javax.swing.JOptionPane.ERROR_MESSAGE
 		            );
@@ -160,6 +160,14 @@ public class UserInterface extends JFrame {
 		IMGPath.setEditable(false);
 		IMGPath.setBounds(25, 349, 472, 30);
 		contentPane.add(IMGPath);
+		
+		JButton LoadButton = new JButton("Charger un Projet");
+		LoadButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		LoadButton.setBounds(334, 530, 172, 58);
+		LoadButton.addActionListener(e -> {
+			controleur.ChargerProject();
+		});
+		contentPane.add(LoadButton);
 
 	}
 }

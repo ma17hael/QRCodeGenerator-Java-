@@ -54,10 +54,9 @@ public class ServicePDF {
 	
 	@SuppressWarnings("resource")
 	public static void generatePDF(String titre, String texte, String lien, String cheminPDF, String cheminImage, DonnéesPersonnalisation perso) {
-        if (titre == null || texte == null || lien == null || cheminPDF == null || perso == null || cheminImage == null) {
+        if (titre == null || texte == null || lien == null || cheminPDF == null || perso == null) {
         	throw new IllegalArgumentException("Paramètres invalides pour la génération du PDF");
         }
-
         try {
             PdfWriter writer = new PdfWriter(cheminPDF);
             PdfDocument pdf = new PdfDocument(writer);
@@ -96,9 +95,9 @@ public class ServicePDF {
             		.setFont(titleFont)
                     .setFontSize(perso.getTitleFontSize())
                     .setFontColor(new DeviceRgb(
-                    		perso.getTitleColor().getRed(),
-                    		perso.getTitleColor().getGreen(),
-                    		perso.getTitleColor().getBlue()))
+                    		perso.getTitleColor().r,
+                    		perso.getTitleColor().g,
+                    		perso.getTitleColor().b))
                     .setTextAlignment(TextAlignment.CENTER)
                     .setMarginBottom(20);
             if (perso.isTitleUnderline()) {
@@ -110,9 +109,9 @@ public class ServicePDF {
             		.setFont(textFont)
                     .setFontSize(perso.getTextFontSize())
                     .setFontColor(new DeviceRgb(
-                    		perso.getTextColor().getRed(),
-                    		perso.getTextColor().getGreen(),
-                    		perso.getTextColor().getRed()))
+                    		perso.getTextColor().r,
+                    		perso.getTextColor().g,
+                    		perso.getTextColor().b))
                     .setTextAlignment(TextAlignment.LEFT)
                     .setMarginBottom(20);
             if (perso.isTextUnderline()) {
