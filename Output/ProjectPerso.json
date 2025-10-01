@@ -1,0 +1,35 @@
+{
+  "titre": "Rapport de démonstration",
+  "texte": "Ce document a été généré automatiquement à l’aide de l’application de génération de PDF avec QRCode. Il illustre les différentes possibilités de personnalisation offertes par l’application : Choix du titre et du texte, avec police, taille, couleur et style personnalisables. Ajout d’une image avec taille ajustable et alignement configurable (gauche, centre ou droite). Génération d’un QR code pointant vers un lien, avec dimension et position personnalisables. Chaque élément peut être déplacé et redimensionné selon vos besoins pour obtenir une mise en page adaptée. Ce document sert d’exemple pour montrer la flexibilité et le contrôle offert aux utilisateurs lors de la création de leurs PDFs personnalisés.",
+  "lien": "https://github.com/ma17hael/QRCodeGenerator-Java-",
+  "cheminPDF": "C:\\Users\\Malthael\\Documents\\qzdqzd.pdf",
+  "cheminImage": "C:\\Users\\Malthael\\Downloads\\github.png",
+  "personnalisation": {
+    "titleFontName": "Arial",
+    "titleFontSize": 40,
+    "isTitleBold": true,
+    "isTitleItalic": true,
+    "isTitleUnderline": true,
+    "titleColor": {
+      "r": 102,
+      "g": 102,
+      "b": 0
+    },
+    "textFontName": "Amiri",
+    "textFontSize": 20,
+    "isTextBold": true,
+    "isTextItalic": true,
+    "isTextUnderline": false,
+    "textColor": {
+      "r": 51,
+      "g": 51,
+      "b": 51
+    },
+    "IMGLength": 50,
+    "IMGWidth": 50,
+    "IMGPosition": "A Droite",
+    "QRLength": 150,
+    "QRWidth": 150,
+    "QRPosition": "Centré"
+  }
+}
